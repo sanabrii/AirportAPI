@@ -5,6 +5,7 @@
 package br.dev.bina.airports.entities.controllers;
 
 import br.dev.bina.airports.entities.Airport;
+import br.dev.bina.airports.entities.controllers.DTO.AirportMinDTO;
 import br.dev.bina.airports.repositories.service.AirportService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +55,21 @@ public class AirportController {
         return ResponseEntity.ok(result);
         }
 }
+    
+    
+    @GetMapping("/country/{countryName}")
+    public ResponseEntity<List<AirportMinDTO>> findByCountryIgnoreCase(@PathVariable String countryName) {
 
+        List<AirportMinDTO> result = airportService.findByCountry(countryName);
+        if (result.isEmpty()) {
+            // ops.. lista vazia...
+            // notFound devolve 404
+            return ResponseEntity.notFound().build();
+            
+        } else {
+            // eba! tem dados! :0
+            // ok devolve 200
+            return ResponseEntity.ok(result);
+        }
+    }
 }
