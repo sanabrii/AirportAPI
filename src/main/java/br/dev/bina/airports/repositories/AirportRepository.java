@@ -16,6 +16,8 @@ public interface AirportRepository extends JpaRepository<Airport, Long> {
     
     List<Airport> findByCityIgnoreCase(String city);
     List<Airport> findByCountryIgnoreCase(String contry);
+    
+    Airport findByIataCode(String iataCode);
 
    
     

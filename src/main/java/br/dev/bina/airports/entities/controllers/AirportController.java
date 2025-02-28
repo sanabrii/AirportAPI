@@ -54,7 +54,7 @@ public class AirportController {
             //ok devolve 200
         return ResponseEntity.ok(result);
         }
-}
+    }
     
     
     @GetMapping("/country/{countryName}")
@@ -66,6 +66,23 @@ public class AirportController {
             // notFound devolve 404
             return ResponseEntity.notFound().build();
             
+        } else {
+            // eba! tem dados! :0
+            // ok devolve 200
+            return ResponseEntity.ok(result);
+        }
+    }
+    
+    
+    @GetMapping("/iatacode/{iataCode}")
+    public ResponseEntity<Airport> findByIataCode (@PathVariable String iataCode) { 
+        Airport result = airportService.findByIataCode(iataCode);
+
+        if (result == null) {
+            // ops.. aeroporto vazio...
+            // notFound devolve 404
+            return ResponseEntity.notFound().build();
+
         } else {
             // eba! tem dados! :0
             // ok devolve 200
