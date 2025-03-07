@@ -6,10 +6,15 @@ package br.dev.bina.airports.repositories.service;
 
 import br.dev.bina.airports.entities.Airport;
 import br.dev.bina.airports.entities.controllers.DTO.AirportMinDTO;
+import br.dev.bina.airports.entities.controllers.DTO.AirportNearMeDTO;
+import br.dev.bina.airports.entities.projections.AirportNearMeProjection;
 import br.dev.bina.airports.repositories.AirportRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -64,5 +69,20 @@ public class AirportService {
         return result;
 }
     
+    /**
+ * Retorna DTO AirportNearMe
+ *
+ * @param latitude
+ * @param longitude
+ * @return
+ */
+    public List<AirportNearMeDTO> findNearMe(double latitude, double longitude) {
+        List<AirportNearMeProjection> resultNearAirports = airportRepository.findNearMe(latitude, longitude);
+
+        List<AirportNearMeDTO> resultDTO = resultNearAirports.stream()
+            .map(x -> new AirportNearMeDTO(x)).toList();
+
+    return resultDTO;
+}
     
 }
